@@ -39,4 +39,33 @@ function findPivot(arr) {
   }
 }
 
+
+
+
+// alternate solution
+
+function findRotatedIndex(arr, num, left=0, right=arr.length-1){
+  if(right >= left){
+    let mid = Math.floor((left + right)/2);
+    let midValue = arr[mid];
+    if(num == midValue){
+      return mid;
+    }else if(arr[left] <= midValue){
+      if(arr[left] <= num && num < midValue){
+        return findRotatedIndex(arr, num, left, mid-1);
+      }else{
+        return findRotatedIndex(arr, num, mid+1, right);
+      }
+      
+    }else{
+      if(num > midValue && num <= arr[right]){
+        return findRotatedIndex(arr, num, mid+1, right);
+      }else{
+        return findRotatedIndex(arr, num, left, mid-1);
+      }      
+    }    
+  }
+  return -1;
+}
+
 module.exports = findRotatedIndex
